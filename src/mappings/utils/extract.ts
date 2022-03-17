@@ -1,7 +1,8 @@
 import { Call as TCall } from "@polkadot/types/interfaces";
 import { EventRecord } from '@polkadot/types/interfaces';
 import { SubstrateExtrinsic } from "@subql/types";
-const PREFIXES = ['0x726d726b', '0x524d524b']
+const PREFIXES = ['0x6d657461726f636B', '0x4d455441524f434B']    //metarock
+// const PREFIXES = ['0x726d726b', '0x524d524b'] //rmrk
 // import { encodeAddress } from "@polkadot/util-crypto";
 
 export type ExtraCall = {
