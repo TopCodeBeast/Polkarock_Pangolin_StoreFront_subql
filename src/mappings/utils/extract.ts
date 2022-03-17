@@ -1,8 +1,8 @@
 import { Call as TCall } from "@polkadot/types/interfaces";
 import { EventRecord } from '@polkadot/types/interfaces';
 import { SubstrateExtrinsic } from "@subql/types";
-const PREFIXES = ['0x6d657461726f636B', '0x4d455441524f434B']    //metarock
-// const PREFIXES = ['0x726d726b', '0x524d524b'] //rmrk
+// const PREFIXES = ['0x6d657461726f636B', '0x4d455441524f434B']    //metarock
+const PREFIXES = ['0x726d726b', '0x524d524b'] //rmrk
 // import { encodeAddress } from "@polkadot/util-crypto";
 
 export type ExtraCall = {
@@ -33,20 +33,20 @@ export const isUtilityBatch = (call: TCall) =>
   call.section === "utility" &&
   (call.method === "batch" || call.method === "batchAll");
 
-  export const isBatchInterrupted = (
-    records: EventRecord[],
-    extrinsicIndex?: number
-  ): boolean => {
-    const events = records.filter(
-      ({ phase, event }) =>
-        phase.isApplyExtrinsic &&
-        // phase.asApplyExtrinsic.eq(extrinsicIndex) &&
-        (event.method.toString() === "BatchInterrupted" ||
-          event.method.toString() === "ExtrinsicFailed")
-    );
-  
-    return Boolean(events.length);
-  };
+export const isBatchInterrupted = (
+  records: EventRecord[],
+  extrinsicIndex?: number
+): boolean => {
+  const events = records.filter(
+    ({ phase, event }) =>
+      phase.isApplyExtrinsic &&
+      // phase.asApplyExtrinsic.eq(extrinsicIndex) &&
+      (event.method.toString() === "BatchInterrupted" ||
+        event.method.toString() === "ExtrinsicFailed")
+  );
+
+  return Boolean(events.length);
+};
 
 export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] => {
   if (!extrinsic.success) {
@@ -81,13 +81,13 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
 export const processBatch = (calls: TCall[], caller: string, blockNumber: string, timestamp: Date): RemarkResult[] => {
   const extra: ExtraCall[] = []
   return calls
-  .filter(call => {
-    if (isSystemRemark(call)) {
-      return true
-    } else {
-      extra.push({ section: call.section, method: call.method, args: call.args.toString().split(',') })
-      return false
-    }
-  })
-  .map(call => ({ value: call.args.toString(), caller, blockNumber, timestamp, extra }))
+    .filter(call => {
+      if (isSystemRemark(call)) {
+        return true
+      } else {
+        extra.push({ section: call.section, method: call.method, args: call.args.toString().split(',') })
+        return false
+      }
+    })
+    .map(call => ({ value: call.args.toString(), caller, blockNumber, timestamp, extra }))
 }
