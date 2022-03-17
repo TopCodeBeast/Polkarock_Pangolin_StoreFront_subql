@@ -270,13 +270,8 @@ export async function handleRemark(extrinsic: SubstrateExtrinsic): Promise<void>
 
   for (const remark of records) {
     try {
-      
-      logger.warn(`[rmrk] ${remark}`)
       const decoded = hexToString(remark.value)
-      logger.warn(`[decoded] ${decoded}`)
-
       const event: RmrkEvent = NFTUtils.getAction(decoded)
-      logger.warn(`[event] ${event}`)
 
       switch (event) {
         case RmrkEvent.MINT:

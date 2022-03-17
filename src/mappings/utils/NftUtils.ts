@@ -72,7 +72,9 @@ class NFTUtils {
       return RmrkEvent.EMOTE
     }
 
-    throw new EvalError(`[NFTUtils] Unable to get action from ${rmrkString}`);
+   else{
+     return RmrkEvent.ERROR
+   }
 
   }
 
