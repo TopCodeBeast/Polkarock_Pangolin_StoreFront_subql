@@ -23,11 +23,15 @@ export interface RemarkResultEntity extends RemarkResult {
   id: string;
 }
 
+// export const isSystemRemark = (call: TCall, prefixes: string[] = PREFIXES): boolean =>
+//   call.section === "system" &&
+//   call.method === "remark" &&
+//   (prefixes.length < 1 ||
+//     prefixes.some((word) => call.args.toString().startsWith(word)));
+
 export const isSystemRemark = (call: TCall, prefixes: string[] = PREFIXES): boolean =>
   call.section === "system" &&
-  call.method === "remark" &&
-  (prefixes.length < 1 ||
-    prefixes.some((word) => call.args.toString().startsWith(word)));
+  call.method === "remark" ;
 
 export const isUtilityBatch = (call: TCall) =>
   call.section === "utility" &&
