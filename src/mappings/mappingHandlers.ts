@@ -314,9 +314,7 @@ export async function handleRemark(
   for (const remark of records) {
     try {
       const decoded = hexToString(remark.value);
-      logger.info(`[decoded] ${decoded}`);
       const event: RmrkEvent = NFTUtils.getAction(decoded);
-      logger.info(`[event] ${event}`);
 
       switch (event) {
         case RmrkEvent.MINT:
