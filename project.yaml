@@ -334,5 +334,5 @@ definitions:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 	1534894
+    startBlock: 	1548680
     mapping: *mymapping # can reuse or change
