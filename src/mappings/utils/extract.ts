@@ -52,6 +52,18 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
   if (!extrinsic.success) {
     return []
   }
+  logger.error(
+    `[getRemarksFrom signer] ${extrinsic.extrinsic.signer.toString()}`
+  );
+  logger.error(
+    `[getRemarksFrom blockNumber] ${extrinsic.block.block.header.number.toString()}`
+  );
+  logger.error(
+    `[getRemarksFrom timestamp] ${extrinsic.block.timestamp}`
+  );
+  logger.error(
+    `[getRemarksFrom method] ${extrinsic.extrinsic.method}::${extrinsic.extrinsic.method.section}::${extrinsic.extrinsic.method.method}`
+  );
 
   const signer = extrinsic.extrinsic.signer.toString();
   const blockNumber = extrinsic.block.block.header.number.toString()
