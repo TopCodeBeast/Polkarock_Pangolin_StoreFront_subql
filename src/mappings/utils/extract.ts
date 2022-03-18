@@ -1,7 +1,7 @@
 import { Call as TCall } from "@polkadot/types/interfaces";
 import { EventRecord } from '@polkadot/types/interfaces';
 import { SubstrateExtrinsic } from "@subql/types";
-const PREFIXES = ['0x6d657461726f636B', '0x4d455441524f434B']    //metarock
+const PREFIXES = ['0x6d657461726f636b', '0x4d455441524f434b']    //metarock
 // const PREFIXES = ['0x726d726b', '0x524d524b'] //rmrk
 // import { encodeAddress } from "@polkadot/util-crypto";
 
@@ -52,20 +52,11 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
   if (!extrinsic.success) {
     return []
   }
-  logger.error(
-    `[getRemarksFrom blockNumber] ${extrinsic.block.block.header.number.toString()}`
-  );
-  logger.error(
-    `[getRemarksFrom method] ${extrinsic.extrinsic.method.toString()}::${extrinsic.extrinsic.args.toString()}::${extrinsic.extrinsic.method.section}::${extrinsic.extrinsic.method.method}`
-  );
-
   const signer = extrinsic.extrinsic.signer.toString();
   const blockNumber = extrinsic.block.block.header.number.toString()
   const timestamp = extrinsic.block.timestamp;
 
   if (isSystemRemark(extrinsic.extrinsic.method as TCall)) {
-    logger.error(
-      `[getRemarksFrom isSystemRemark]`);
     return [{
       value: extrinsic.extrinsic.args.toString(),
       caller: signer,
@@ -78,7 +69,6 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
     if (isBatchInterrupted(extrinsic.events)) {
       return [];
     }
-
     return processBatch(extrinsic.extrinsic.method.args[0] as unknown as TCall[], signer, blockNumber, timestamp)
   }
 

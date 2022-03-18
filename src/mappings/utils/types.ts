@@ -11,7 +11,6 @@ export enum RmrkEvent {
   CHANGEISSUER = 'CHANGEISSUER',
   SEND = 'SEND',
   EMOTE = 'EMOTE',
-  ERROR = 'ERROR'
 }
 
 export const getNftId = (nft: any, blocknumber?: string | number): string => {
