@@ -53,16 +53,10 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
     return []
   }
   logger.error(
-    `[getRemarksFrom signer] ${extrinsic.extrinsic.signer.toString()}`
-  );
-  logger.error(
     `[getRemarksFrom blockNumber] ${extrinsic.block.block.header.number.toString()}`
   );
   logger.error(
-    `[getRemarksFrom timestamp] ${extrinsic.block.timestamp}`
-  );
-  logger.error(
-    `[getRemarksFrom method] ${extrinsic.extrinsic.method}::${extrinsic.extrinsic.method.section}::${extrinsic.extrinsic.method.method}`
+    `[getRemarksFrom method] ${extrinsic.extrinsic.method.toString()}::${extrinsic.extrinsic.args.toString()}::${extrinsic.extrinsic.method.section}::${extrinsic.extrinsic.method.method}`
   );
 
   const signer = extrinsic.extrinsic.signer.toString();
@@ -70,6 +64,8 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
   const timestamp = extrinsic.block.timestamp;
 
   if (isSystemRemark(extrinsic.extrinsic.method as TCall)) {
+    logger.error(
+      `[getRemarksFrom isSystemRemark]`);
     return [{
       value: extrinsic.extrinsic.args.toString(),
       caller: signer,
