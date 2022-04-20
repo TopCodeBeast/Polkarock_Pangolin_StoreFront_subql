@@ -1,5 +1,5 @@
 {
-  "name": "magick",
+  "name": "TopCodeBeast",
   "version": "1.0.0",
   "description": "None",
   "type": "module",
@@ -17,7 +17,7 @@
     "schema.graphql",
     "project.yaml"
   ],
-  "author": "vikiival",
+  "author": "TopCodeBeast",
   "license": "MIT",
   "devDependencies": {
     "@polkadot/api": "^7",

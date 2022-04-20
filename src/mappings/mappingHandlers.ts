@@ -13,6 +13,7 @@ import {
   eventFrom,
   getNftId,
   NFT,
+  NFTClone,
   RmrkEvent,
   RmrkInteraction,
 } from "./utils/types";
@@ -95,7 +96,7 @@ async function mintNFT(remark: RemarkResult) {
 async function cloneNFT(remark: RemarkResult) {
   let nft = null;
   try {
-    nft = NFTUtils.unwrap(remark.value) as NFT;
+    nft = NFTUtils.unwrap(remark.value) as NFTClone;
     // canOrElseError<string>(exists, nft.collection, true);
     // const collection = await CollectionEntity.get(nft.collection);
     // canOrElseError<CollectionEntity>(exists, collection, true);
@@ -115,7 +116,7 @@ async function cloneNFT(remark: RemarkResult) {
     final.metadata = nft.metadata;
     final.price = BigInt(0);
     final.burned = false;
-    final.events = [eventFrom(RmrkEvent.MINTNFT, remark, "")];
+    final.events = [eventFrom(RmrkEvent.CLONE, remark, "")];
     final.createdAt = remark.timestamp;
     final.updatedAt = remark.timestamp;
 
@@ -123,7 +124,7 @@ async function cloneNFT(remark: RemarkResult) {
     await final.save();
   } catch (e) {
     logger.error(`[CLONE] ${e.message} ${JSON.stringify(nft)}`);
-    await logFail(JSON.stringify(nft), e.message, RmrkEvent.MINTNFT);
+    await logFail(JSON.stringify(nft), e.message, RmrkEvent.CLONE);
   }
 }
 
