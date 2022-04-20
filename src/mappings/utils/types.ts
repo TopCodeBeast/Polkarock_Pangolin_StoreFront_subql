@@ -11,6 +11,7 @@ export enum RmrkEvent {
   CHANGEISSUER = 'CHANGEISSUER',
   SEND = 'SEND',
   EMOTE = 'EMOTE',
+  CLONE = 'CLONE',
 }
 
 export const getNftId = (nft: any, blocknumber?: string | number): string => {
@@ -59,6 +60,21 @@ export interface NFT {
   blockNumber?: number;
 }
 
+export interface NFTClone {
+  name: string;
+  instance: string;
+  transferable: number;
+  collection: string;
+  sn: string;
+  _id: string;
+  id: string;
+  metadata: string;
+  seller: string;
+  buyer: string;
+  price?: string;
+  disabled?: boolean;
+  blockNumber?: number;
+}
 
 export interface RMRK {
   event: RmrkEvent;

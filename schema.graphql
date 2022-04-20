@@ -46,6 +46,25 @@ type NFTEntity @entity {
   updatedAt: Date! @index
 }
 
+type NFTCloneEntity @entity {
+  name: String @index
+  instance: String
+  transferable: Int
+  collection: CollectionEntity!
+  sn: String
+  id: ID!
+  metadata: String
+  seller: String
+  buyer: String @index
+  price: BigInt
+  burned: Boolean
+  blockNumber: BigInt @index
+  events: [Event]
+  emotes: [Emote] @derivedFrom(field: "nft")
+  createdAt: Date!
+  updatedAt: Date! @index
+}
+
 type Event @jsonField {
   blockNumber: String
   timestamp: Date
@@ -68,4 +87,5 @@ enum Interaction {
   BUY
   CONSUME
   EMOTE
+  CLONE
 }

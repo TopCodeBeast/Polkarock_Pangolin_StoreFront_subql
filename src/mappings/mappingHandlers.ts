@@ -3,6 +3,7 @@ import {
   Emote,
   FailedEntity,
   NFTEntity,
+  NFTCloneEntity,
   RemarkEntity,
 } from "../types";
 import { SubstrateExtrinsic } from "@subql/types";
@@ -87,6 +88,41 @@ async function mintNFT(remark: RemarkResult) {
     await final.save();
   } catch (e) {
     logger.error(`[MINT] ${e.message} ${JSON.stringify(nft)}`);
+    await logFail(JSON.stringify(nft), e.message, RmrkEvent.MINTNFT);
+  }
+}
+
+async function cloneNFT(remark: RemarkResult) {
+  let nft = null;
+  try {
+    nft = NFTUtils.unwrap(remark.value) as NFT;
+    // canOrElseError<string>(exists, nft.collection, true);
+    // const collection = await CollectionEntity.get(nft.collection);
+    // canOrElseError<CollectionEntity>(exists, collection, true);
+    // isOwnerOrElseError(collection, remark.caller);
+    nft.id = getNftId(nft, remark.blockNumber);
+    const final = NFTCloneEntity.create(nft);
+
+    final.id = getNftId(nft, remark.blockNumber);
+    final.buyer = nft.buyer;
+    final.seller = nft.seller;
+    final.blockNumber = BigInt(remark.blockNumber);
+    final.name = nft.name;
+    final.instance = nft.instance;
+    final.transferable = nft.transferable;
+    final.collectionId = nft.collection;
+    final.sn = nft.sn;
+    final.metadata = nft.metadata;
+    final.price = BigInt(0);
+    final.burned = false;
+    final.events = [eventFrom(RmrkEvent.MINTNFT, remark, "")];
+    final.createdAt = remark.timestamp;
+    final.updatedAt = remark.timestamp;
+
+    logger.info(`SAVED [CLONE] ${final.id}`);
+    await final.save();
+  } catch (e) {
+    logger.error(`[CLONE] ${e.message} ${JSON.stringify(nft)}`);
     await logFail(JSON.stringify(nft), e.message, RmrkEvent.MINTNFT);
   }
 }
@@ -341,6 +377,9 @@ export async function handleRemark(
         case RmrkEvent.EMOTE:
           await emote(remark);
           break;
+        case RmrkEvent.CLONE:
+            await cloneNFT(remark);
+            break;
         default:
           logger.warn(
             `[SKIP] ${event}::${remark.blockNumber}::${hexToString(

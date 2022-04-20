@@ -22,6 +22,8 @@ export function resolve(remark: RemarkResult) {
          function changeIssuer(remark: RemarkResult ) {}
       case RmrkEvent.EMOTE:
          function appreciate(remark: RemarkResult ) {}
+      case RmrkEvent.CLONE:
+            function cloneNFT(remark: RemarkResult ) {}
       default:
         throw new EvalError(`Unable to evaluate following string, ${remark.value}`)
     }
