@@ -3,7 +3,7 @@ import {
   Emote,
   FailedEntity,
   NFTEntity,
-  NFTCloneEntity,
+  CloneEntity,
   RemarkEntity,
 } from "../types";
 import { SubstrateExtrinsic } from "@subql/types";
@@ -102,7 +102,7 @@ async function cloneNFT(remark: RemarkResult) {
     // canOrElseError<CollectionEntity>(exists, collection, true);
     // isOwnerOrElseError(collection, remark.caller);
     nft.id = getNftId(nft, remark.blockNumber);
-    const final = NFTCloneEntity.create(nft);
+    const final = CloneEntity.create(nft);
 
     final.id = getNftId(nft, remark.blockNumber);
     final.buyer = nft.buyer;
@@ -110,8 +110,6 @@ async function cloneNFT(remark: RemarkResult) {
     final.blockNumber = BigInt(remark.blockNumber);
     final.name = nft.name;
     final.instance = nft.instance;
-    final.transferable = nft.transferable;
-    final.collectionId = nft.collection;
     final.sn = nft.sn;
     final.metadata = nft.metadata;
     final.price = BigInt(0);

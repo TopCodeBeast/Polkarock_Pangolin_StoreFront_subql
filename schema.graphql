@@ -46,11 +46,9 @@ type NFTEntity @entity {
   updatedAt: Date! @index
 }
 
-type NFTCloneEntity @entity {
+type CloneEntity @entity {
   name: String @index
   instance: String
-  transferable: Int
-  collection: CollectionEntity!
   sn: String
   id: ID!
   metadata: String
