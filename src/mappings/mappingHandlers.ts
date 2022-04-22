@@ -80,6 +80,7 @@ async function mintNFT(remark: RemarkResult) {
     final.sn = nft.sn;
     final.metadata = nft.metadata;
     final.price = BigInt(0);
+    final.maxSupply = nft.maxSupply;
     final.burned = false;
     final.events = [eventFrom(RmrkEvent.MINTNFT, remark, "")];
     final.createdAt = remark.timestamp;
@@ -97,10 +98,6 @@ async function cloneNFT(remark: RemarkResult) {
   let nft = null;
   try {
     nft = NFTUtils.unwrap(remark.value) as NFTClone;
-    // canOrElseError<string>(exists, nft.collection, true);
-    // const collection = await CollectionEntity.get(nft.collection);
-    // canOrElseError<CollectionEntity>(exists, collection, true);
-    // isOwnerOrElseError(collection, remark.caller);
     nft.id = getNftId(nft, remark.blockNumber);
     const final = CloneEntity.create(nft);
 
