@@ -81,6 +81,7 @@ async function mintNFT(remark: RemarkResult) {
     final.metadata = nft.metadata;
     final.price = BigInt(0);
     final.maxSupply = nft.maxSupply;
+    final.tags = nft.tags;
     final.burned = false;
     final.events = [eventFrom(RmrkEvent.MINTNFT, remark, "")];
     final.createdAt = remark.timestamp;
