@@ -111,6 +111,7 @@ async function cloneNFT(remark: RemarkResult) {
     final.sn = nft.sn;
     final.metadata = nft.metadata;
     final.price = BigInt(0);
+    final.tags = nft.tags;
     final.burned = false;
     final.events = [eventFrom(RmrkEvent.CLONE, remark, "")];
     final.createdAt = remark.timestamp;
