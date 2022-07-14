@@ -5,6 +5,7 @@ import {
   NFTEntity,
   CloneEntity,
   RemarkEntity,
+  ReviewEntity,
 } from "../types";
 import { SubstrateExtrinsic } from "@subql/types";
 import { getRemarksFrom, RemarkResult } from "./utils";
@@ -16,6 +17,7 @@ import {
   NFTClone,
   RmrkEvent,
   RmrkInteraction,
+  Review,
 } from "./utils/types";
 import NFTUtils, { hexToString } from "./utils/NftUtils";
 import {
@@ -99,6 +101,10 @@ async function cloneNFT(remark: RemarkResult) {
   let nft = null;
   try {
     nft = NFTUtils.unwrap(remark.value) as NFTClone;
+    canOrElseError<string>(exists, nft.collection, true);
+    const collection = await CollectionEntity.get(nft.collection);
+    canOrElseError<CollectionEntity>(exists, collection, true);
+    isOwnerOrElseError(collection, remark.caller);
     nft.id = getNftId(nft, remark.blockNumber);
     const final = CloneEntity.create(nft);
 
@@ -108,6 +114,7 @@ async function cloneNFT(remark: RemarkResult) {
     final.blockNumber = BigInt(remark.blockNumber);
     final.name = nft.name;
     final.instance = nft.instance;
+    final.collectionId = nft.collection;
     final.sn = nft.sn;
     final.metadata = nft.metadata;
     final.price = BigInt(0);
@@ -122,6 +129,30 @@ async function cloneNFT(remark: RemarkResult) {
   } catch (e) {
     logger.error(`[CLONE] ${e.message} ${JSON.stringify(nft)}`);
     await logFail(JSON.stringify(nft), e.message, RmrkEvent.CLONE);
+  }
+}
+
+async function review(remark: RemarkResult) {
+  let reviewData = null;
+  try {
+    reviewData = NFTUtils.unwrap(remark.value) as Review;
+    canOrElseError<NFTEntity>(exists, reviewData.productId, true);
+    canOrElseError<CloneEntity>(exists, reviewData.cloneId, true);
+    // isOwnerOrElseError(collection, remark.caller);
+    const final = ReviewEntity.create(reviewData);
+
+    final.to = reviewData.to
+    final.from = reviewData.from;
+    final.productId = reviewData.productId;
+    final.cloneId = reviewData.cloneId;
+    final.content = reviewData.content;
+    final.type = reviewData.type;
+
+    logger.info(`SAVED [REVIEW] ${final.id}`);
+    await final.save();
+  } catch (e) {
+    logger.error(`[REVIEW] ${e.message} ${JSON.stringify(reviewData)}`);
+    await logFail(JSON.stringify(reviewData), e.message, RmrkEvent.MINTNFT);
   }
 }
 

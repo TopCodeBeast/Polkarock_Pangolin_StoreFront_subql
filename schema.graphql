@@ -51,6 +51,7 @@ type NFTEntity @entity {
 type CloneEntity @entity {
   name: String @index
   instance: String
+  collection: CollectionEntity!
   sn: String
   id: ID!
   metadata: String
@@ -62,6 +63,16 @@ type CloneEntity @entity {
   tags: [String]
   events: [Event]
   emotes: [Emote] @derivedFrom(field: "nft")
+  createdAt: Date!
+  updatedAt: Date! @index
+}
+type ReviewEntity @entity{
+  id: ID!
+  to: String
+  from: String
+  productId: String
+  content: String
+  rate: Int
   createdAt: Date!
   updatedAt: Date! @index
 }

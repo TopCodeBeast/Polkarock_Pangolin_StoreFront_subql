@@ -75,6 +75,9 @@ class NFTUtils {
     if (RmrkActionRegex.CLONE.test(rmrkString)) {
       return RmrkEvent.CLONE
     }
+    if (RmrkActionRegex.REVIEW.test(rmrkString)) {
+      return RmrkEvent.REVIEW
+    }
 
     throw new EvalError(`[NFTUtils] Unable to get action from ${rmrkString}`);
 
@@ -118,6 +121,7 @@ export class RmrkActionRegex {
   static LIST = /^[mM][eE][tT][aA][rR][oO][cC][kK]::LIST::/;
   static EMOTE = /^[mM][eE][tT][aA][rR][oO][cC][kK]::EMOTE::/;
   static CLONE = /^[mM][eE][tT][aA][rR][oO][cC][kK]::CLONE::/;
+  static REVIEW = /^[mM][eE][tT][aA][rR][oO][cC][kK]::REVIEW::/;
 }
 
 
