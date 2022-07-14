@@ -145,7 +145,6 @@ async function review(remark: RemarkResult) {
     final.from = reviewData.from;
     final.productId = reviewData.productId;
     final.content = reviewData.content;
-    final.type = reviewData.type;
     final.rate = reviewData.rate;
     final.createdAt = remark.timestamp;
     final.updatedAt = remark.timestamp;

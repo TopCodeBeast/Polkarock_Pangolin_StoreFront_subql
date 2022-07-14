@@ -90,7 +90,7 @@ export interface Review {
   productId: string;
   cloneId: string;
   content: string;
-  type: number;
+  rate: number;
 }
 
 export interface RMRK {
