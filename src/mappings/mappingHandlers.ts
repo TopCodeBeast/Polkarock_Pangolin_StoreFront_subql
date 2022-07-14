@@ -144,9 +144,11 @@ async function review(remark: RemarkResult) {
     final.to = reviewData.to
     final.from = reviewData.from;
     final.productId = reviewData.productId;
-    final.cloneId = reviewData.cloneId;
     final.content = reviewData.content;
     final.type = reviewData.type;
+    final.rate = reviewData.rate;
+    final.createdAt = remark.timestamp;
+    final.updatedAt = remark.timestamp;
 
     logger.info(`SAVED [REVIEW] ${final.id}`);
     await final.save();
