@@ -104,7 +104,7 @@ async function cloneNFT(remark: RemarkResult) {
     canOrElseError<string>(exists, nft.collection, true);
     const collection = await CollectionEntity.get(nft.collection);
     canOrElseError<CollectionEntity>(exists, collection, true);
-    isOwnerOrElseError(collection, remark.caller);
+    isOwnerOrElseError(collection, nft.currentOwner);
     nft.id = getNftId(nft, remark.blockNumber);
     const final = CloneEntity.create(nft);
 
