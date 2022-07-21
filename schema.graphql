@@ -55,8 +55,8 @@ type CloneEntity @entity {
   sn: String
   id: ID!
   metadata: String
-  seller: String
-  buyer: String @index
+  currentOwner: String
+  issuer: String @index
   price: BigInt
   burned: Boolean
   blockNumber: BigInt @index

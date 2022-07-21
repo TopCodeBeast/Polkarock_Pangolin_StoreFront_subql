@@ -109,8 +109,8 @@ async function cloneNFT(remark: RemarkResult) {
     const final = CloneEntity.create(nft);
 
     final.id = getNftId(nft, remark.blockNumber);
-    final.buyer = nft.buyer;
-    final.seller = nft.seller;
+    final.issuer =  nft.currentOwner;
+    final.currentOwner = remark.caller;
     final.blockNumber = BigInt(remark.blockNumber);
     final.name = nft.name;
     final.instance = nft.instance;

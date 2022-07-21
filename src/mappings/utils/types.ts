@@ -76,8 +76,7 @@ export interface NFTClone {
   _id: string;
   id: string;
   metadata: string;
-  seller: string;
-  buyer: string;
+  currentOwner: string;
   price?: string;
   disabled?: boolean;
   tags: string[];
