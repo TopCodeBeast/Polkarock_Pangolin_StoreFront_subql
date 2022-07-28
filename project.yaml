@@ -3,10 +3,10 @@ name: destore-pangolin
 runner:
   node:
     name: '@subql/node'
-    version: 'v1.4.1'
+    version: '*'
   query:
     name: '@subql/query'
-    version: 'v1.2.1'
+    version: '*'
 description: None
 repository: ''
 schema:
