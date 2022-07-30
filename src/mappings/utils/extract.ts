@@ -66,7 +66,7 @@ export const getRemarksFrom = (extrinsic: SubstrateExtrinsic): RemarkResult[] =>
   }
 
   if (isUtilityBatch(extrinsic.extrinsic.method as TCall)) {
-    if (isBatchInterrupted(extrinsic.events)) {
+    if (isBatchInterrupted(extrinsic.block.events)) {
       return [];
     }
     return processBatch(extrinsic.extrinsic.method.args[0] as unknown as TCall[], signer, blockNumber, timestamp)
