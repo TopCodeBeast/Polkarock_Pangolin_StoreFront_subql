@@ -90,14 +90,23 @@ For the `subql-starter` project, you can try to query with the following code to
 
 ````graphql
 {
-  query{
-    starterEntities(first:10){
-      nodes{
-        field1,
-        field2,
-        field3
-      }
+ query {
+  cloneEntities(first: 10) {
+    nodes {
+      id
     }
   }
+  nFTEntities(first:10){
+    nodes{
+      id
+    }
+  }
+  collectionEntities(first:10){
+    nodes{
+      id
+    }
+  }
+}
+
 }
 ````
