@@ -114,7 +114,7 @@ async function cloneNFT(remark: RemarkResult) {
     final.blockNumber = BigInt(remark.blockNumber);
     final.name = nft.name;
     final.instance = nft.instance;
-    final.collectionId = nft.collection;
+    final.collectionId = nft.collection.id;
     final.sn = nft.sn;
     final.metadata = nft.metadata;
     final.price = BigInt(0);
